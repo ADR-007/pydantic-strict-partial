@@ -2,6 +2,15 @@
 
 
 
+## v0.4.3 (2024-04-10)
+
+### Fix
+
+* fix: fix CD ([`2322719`](https://github.com/ADR-007/pydantic-strict-partial/commit/232271933e99d960aee1613ce4dafbb8f07e73ec))
+
+* fix: remove poetry.lock ([`97f1ba8`](https://github.com/ADR-007/pydantic-strict-partial/commit/97f1ba824170216cf3e5ef6f4a7c2d7950284b17))
+
+
 ## v0.4.2 (2024-04-10)
 
 ### Fix
