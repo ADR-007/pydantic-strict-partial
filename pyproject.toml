@@ -17,7 +17,7 @@ classifiers = [
     "Framework :: Pydantic :: 2",
 ]
 packages = [
-    { include = "pydantic_strict_partial.py", from = "." },
+    { include = "pydantic_strict_partial", from = "." },
 ]
 homepage = "https://github.com/ADR-007/pydantic-strict-partial"
 
@@ -71,9 +71,9 @@ deps =
     mypy
     pytest
 commands =
-    ruff check pydantic_strict_partial.py tests.py
-    ruff format --check pydantic_strict_partial.py tests.py
-    mypy pydantic_strict_partial.py tests.py
+    ruff check pydantic_strict_partial tests.py
+    ruff format --check pydantic_strict_partial tests.py
+    mypy pydantic_strict_partial tests.py
 
 """
 
