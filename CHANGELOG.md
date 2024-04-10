@@ -2,6 +2,19 @@
 
 
 
+## v0.4.1 (2024-04-10)
+
+### Ci
+
+* ci: use PAT to push tags to trigger PyPI publishing ([`b88967e`](https://github.com/ADR-007/pydantic-strict-partial/commit/b88967e209f4f27e80082610072c89a00cb26339))
+
+* ci: fix versioning ([`07fb0a9`](https://github.com/ADR-007/pydantic-strict-partial/commit/07fb0a980354c48117afa478fc43492d3cf4a5f2))
+
+### Fix
+
+* fix: add py.typed to support mypy ([`091adfd`](https://github.com/ADR-007/pydantic-strict-partial/commit/091adfda6f833cac3b0e6cb231da570f61450378))
+
+
 ## v0.4.0 (2024-04-10)
 
 ### Documentation
