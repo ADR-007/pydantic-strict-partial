@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/pydantic-strict-partial.svg)](https://badge.fury.io/py/pydantic-strict-partial)
 [![PyPI Supported Python Versions](https://img.shields.io/pypi/pyversions/pydantic-strict-partial.svg)](https://pypi.python.org/pypi/pydantic-strict-partial/)
-[![CI](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/main.yaml)
+[![CI](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/ci.yaml)
 ![badge](https://raw.githubusercontent.com/ADR-007/pydantic-strict-partial/_xml_coverage_reports/data/main/./badge.svg)
 
 
