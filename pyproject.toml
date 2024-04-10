@@ -1,0 +1,166 @@
+[tool.poetry]
+name = "pydantic-strict-partial"
+version = "0.1.0"
+description = "Makes partial Pydantic models without making fields nullable."
+authors = ["Adrian Dankiv <adr-007@ukr.net>"]
+license = "MIT"
+readme = "README.md"
+keywords = ["pydantic", "partial", "fastapi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Pydantic :: 2",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.5"
+mypy = "^1.9.0"
+coverage = "^7.4.4"
+pytest = "^8.1.1"
+tox = "^4.14.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+min_version = 4.0
+env_list =
+    lint
+    type
+    py{310,311,312}-pydantic2.6
+    py312-pydantic{2.1,2.x}
+    coverage
+
+[gh-actions]
+python =
+    3.12: lint, type, coverage, py312-pydantic{2.1,2.x}
+    3.11: py311-pydantic2.6
+    3.10: py310-pydantic2.6
+
+[testenv]
+deps =
+    pytest
+    pydantic2.x: pydantic >= 2.0, < 3.0
+    pydantic2.1: pydantic >= 2.1, < 2.2
+    pydantic2.8: pydantic >= 2.8, < 2.9
+commands = pytest tests.py
+
+
+[testenv:type]
+deps =
+    mypy
+    pytest
+commands = mypy pydantic_strict_partial.py tests.py
+
+[testenv:lint]
+deps = ruff
+commands =
+    ruff check pydantic_strict_partial.py tests.py
+    ruff format --check pydantic_strict_partial.py tests.py
+
+[testenv:coverage]
+deps =
+    pytest
+    coverage
+    pydantic
+commands =
+	coverage run -m pytest tests.py
+	coverage html -d ./reports/htmlcov --omit="tests.py"
+	coverage xml -o ./reports/coverage.xml --omit="tests.py"
+	coverage report --skip-empty --fail-under 90
+
+"""
+
+[tool.mypy]
+
+[[tool.mypy.overrides]]
+module = "tests"
+disable_error_code = [
+    "call-arg",
+]
+
+[tool.ruff]
+
+[tool.ruff.lint]
+select = [
+    "F", # Pyflakes
+    "W", "E", # pycodestyle (E
+    "C90", # mccabe
+    "I", # isort
+    "N", # pep8-naming
+    "D", # pydocstyle
+    "UP", # pyupgrade
+    "YTT", # flake8-2020
+    "ANN", # flake8-annotations
+    "ASYNC", # flake8-async
+    "S", # flake8-bandit
+    "BLE", # flake8-blind-except
+    #    "FBT", # flake8-boolean-trap
+    "B", # flake8-bugbear
+    "A", # flake8-builtins
+    "COM", # flake8-commas
+    #    "CPY", # flake8-copyright
+    "C4", # flake8-comprehensions
+    "DTZ", # flake8-datetimez
+    "T10", # flake8-debugger
+    #    "DJ", # flake8-django
+    #    "EM", # flake8-errmsg
+    "EXE", # flake8-executable
+    #    "FA", # flake8-future-annotations
+    "ISC", # flake8-implicit-str-concat
+    "ICN", # flake8-import-conventions
+    #    "G", # flake8-logging-format
+    "INP", # flake8-no-pep420
+    "PIE", # flake8-pie
+    "T20", # flake8-print
+    "PYI", # flake8-pyi
+    "PT", # flake8-pytest-style
+    #    "Q", # flake8-quotes
+    "RSE", # flake8-raise
+    "RET", # flake8-return
+    "SLF", # flake8-self
+    "SLOT", # flake8-slots
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+    "TCH", # flake8-type-checking
+    "INT", # flake8-gettext
+    "ARG", # flake8-unused-arguments
+    "PTH", # flake8-use-pathlib
+    #    "TD", # flake8-todos
+    #    "FIX", # flake8-fixme
+    "ERA", # eradicate
+    #    "PD", # pandas-vet
+    "PGH", # pygrep-hooks
+    "PL", # Pylint
+    "TRY", # tryceratops
+    "FLY", # flynt
+    #    "NPY", # NumPy-specific rules
+    #    "AIR", # Airflow
+    "PERF", # Perflint
+    #    "FURB", # refurb (in preview)
+    #    "LOG", # flake8-logging (in preview)
+    "RUF", # Ruff-specific rules
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.per-file-ignores]
+"**/test[_s]*.py" = [
+    "S101", "S103",
+    "D100", "D101", "D102", "D103",
+    "ANN102",
+    "TRY003",
+]
