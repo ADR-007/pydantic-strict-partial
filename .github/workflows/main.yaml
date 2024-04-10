@@ -105,7 +105,7 @@ jobs:
           # Minimum total coverage, if you want to the
           # workflow to enforce it as a standard.
           # This has no effect if the `fail` arg is set to `false`.
-          threshold: 50 # Temporary set to 50%. Should be 95%.
+          threshold: 99 # Temporary set to 50%. Should be 95%.
 
           # Fail the workflow if the minimum code coverage
           # reuqirements are not satisfied.
