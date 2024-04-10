@@ -37,13 +37,8 @@ jobs:
       - name: Run test suite
         run: tox --skip-pkg-install
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage_report
-          path: ./reports
-
   lint:
-    name: Python 3.12 + Coverage
+    name: lint (3.12)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +60,7 @@ jobs:
         run: tox --skip-pkg-install -e coverage
 
   coverage:
-    name: Python 3.12 + Coverage
+    name: coverage (3.12)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -92,6 +87,7 @@ jobs:
           path: ./reports
 
   coverage-report:
+    name: coverage report
     needs:
       - coverage
     runs-on: ubuntu-latest
