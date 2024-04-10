@@ -16,6 +16,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Framework :: Pydantic :: 2",
 ]
+packages = [
+    { include = "pydantic_strict_partial.py", from = "." },
+]
+homepage = "https://github.com/ADR-007/pydantic-strict-partial"
 
 [tool.poetry.dependencies]
 python = "^3.10"
