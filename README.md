@@ -60,4 +60,4 @@ UserPartialUpdateSchema(age=17)  # raises ValidationError
 
 ## Alternatives
 
-[pydantic-partial](https://github.com/team23/pydantic-partial) - gives inspiration to write this library. It makes all fields nullable and disabled all validators, which is not sutable for payload validation on `PATCH` endpoints.
+[pydantic-partial](https://github.com/team23/pydantic-partial) - it makes all fields nullable and disables all validators, which is not suitable for payload validation on `PATCH` endpoints.
