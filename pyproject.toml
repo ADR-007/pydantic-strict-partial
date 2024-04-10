@@ -61,17 +61,15 @@ commands =
 	coverage report --skip-empty --fail-under 90
 
 
-[testenv:type]
+[testenv:lint]
 deps =
+    ruff
     mypy
     pytest
-commands = mypy pydantic_strict_partial.py tests.py
-
-[testenv:lint]
-deps = ruff
 commands =
     ruff check pydantic_strict_partial.py tests.py
     ruff format --check pydantic_strict_partial.py tests.py
+    mypy pydantic_strict_partial.py tests.py
 
 """
 
