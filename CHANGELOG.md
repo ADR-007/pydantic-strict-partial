@@ -2,6 +2,13 @@
 
 
 
+## v0.4.2 (2024-04-10)
+
+### Fix
+
+* fix: merge publish workflow with release.yaml ([`9c1ab35`](https://github.com/ADR-007/pydantic-strict-partial/commit/9c1ab3584dc6f0a1c7adf16b38476e8cd34ab95f))
+
+
 ## v0.4.1 (2024-04-10)
 
 ### Ci
