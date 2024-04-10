@@ -45,17 +45,20 @@ env_list =
 
 [gh-actions]
 python =
-    3.12: lint, type, coverage, py312-pydantic{2.1,2.x}
+    3.12: lint, type, py312-pydantic{2.1,2.x}
     3.11: py311-pydantic2.6
     3.10: py310-pydantic2.6
 
 [testenv]
 deps =
     pytest
-    pydantic2.x: pydantic >= 2.0, < 3.0
-    pydantic2.1: pydantic >= 2.1, < 2.2
-    pydantic2.8: pydantic >= 2.8, < 2.9
-commands = pytest tests.py
+    coverage
+    pydantic
+commands =
+	coverage run -m pytest tests.py
+	coverage html -d ./reports/htmlcov --omit="tests.py"
+	coverage xml -o ./reports/coverage.xml --omit="tests.py"
+	coverage report --skip-empty --fail-under 90
 
 
 [testenv:type]
@@ -69,17 +72,6 @@ deps = ruff
 commands =
     ruff check pydantic_strict_partial.py tests.py
     ruff format --check pydantic_strict_partial.py tests.py
-
-[testenv:coverage]
-deps =
-    pytest
-    coverage
-    pydantic
-commands =
-	coverage run -m pytest tests.py
-	coverage html -d ./reports/htmlcov --omit="tests.py"
-	coverage xml -o ./reports/coverage.xml --omit="tests.py"
-	coverage report --skip-empty --fail-under 90
 
 """
 
