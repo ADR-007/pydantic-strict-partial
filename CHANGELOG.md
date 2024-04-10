@@ -2,6 +2,13 @@
 
 
 
+## v0.4.4 (2024-04-10)
+
+### Fix
+
+* fix: fix CD ([`95d2566`](https://github.com/ADR-007/pydantic-strict-partial/commit/95d2566467d689bd63aa5b3ea85f5c9cda3ecb1c))
+
+
 ## v0.4.3 (2024-04-10)
 
 ### Fix
