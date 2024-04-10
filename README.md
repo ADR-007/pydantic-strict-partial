@@ -5,9 +5,16 @@
 [![CI](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ADR-007/pydantic-strict-partial/actions/workflows/ci.yaml)
 ![badge](https://raw.githubusercontent.com/ADR-007/pydantic-strict-partial/_xml_coverage_reports/data/main/./badge.svg)
 
+## About
 
-Like [pydantic-partial](https://github.com/team23/pydantic-partial), but respects all the validators, and not nullable field. 
-GitHub [homepage](https://github.com/ADR-007/pydantic-strict-partial).
+Create partial models based on the original Pydantic models. 
+
+This makes all the fields optional. 
+This **doesn't** make them nullable and **doesn't** disable validation.
+The only thing it does is provide default values for those fields (`None` by default), 
+so you can use `model.model_dump(exclude_unset=True)` command to receive specified values only.
+
+The most common use case is a `PATCH` request on **FastAPI** endpoints where you want to allow partial updates.
 
 ## Installation
 
@@ -22,13 +29,6 @@ pip install pydantic-strict-partial
 ```bash
 poetry add pydantic-strict-partial
 ```
-
-## About
-
-Create partial models from your normal pydantic models. 
-Partial models will allow some or all fields to be optional and thus not be required when creating the model instance.
-
-The most common use case is a PATCH request on FastAPI endpoints where you want to allow partial updates.
 
 ## Usage
 
@@ -57,3 +57,7 @@ UserPartialUpdateSchema(name=None)  # raises ValidationError
 UserPartialUpdateSchema(age=17)  # raises ValidationError
 
 ```
+
+## Alternatives
+
+[pydantic-partial](https://github.com/team23/pydantic-partial) - gives inspiration to write this library. It makes all fields nullable and disabled all validators, which is not sutable for payload validation on `PATCH` endpoints.
