@@ -2,6 +2,13 @@
 
 
 
+## v0.4.0 (2024-04-10)
+
+### Documentation
+
+* docs: Update README.md ([`a9c930b`](https://github.com/ADR-007/pydantic-strict-partial/commit/a9c930bb10bc61d546a50d9b058b03625559a622))
+
+
 ## v0.3.0 (2024-04-10)
 
 ### Documentation
