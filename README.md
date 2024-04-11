@@ -58,6 +58,18 @@ UserPartialUpdateSchema(age=17)  # raises ValidationError
 
 ```
 
+## Known limitations
+
+#### MyPy: "is not valid as a type" error
+
+You may be faced with `Variable "UserPartialUpdateSchema" is not valid as a type` error.
+There is no good solution for that. But the next approach can be used as a workaround: 
+
+```py
+class UserPartialUpdateSchema(create_partial_model(UserSchema)):  # type: ignore[misc]
+    pass
+```
+
 ## Alternatives
 
 [pydantic-partial](https://github.com/team23/pydantic-partial) - it makes all fields nullable and disables all validators, which is not suitable for payload validation on `PATCH` endpoints.
