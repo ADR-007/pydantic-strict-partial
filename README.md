@@ -58,6 +58,12 @@ UserPartialUpdateSchema(age=17)  # raises ValidationError
 
 ```
 
+There is also possible to specify a limited list of fields to be partial:
+
+```python
+UserPartialUpdateSchema = create_partial_model(UserSchema, 'name', 'nickname')
+```
+
 ## Known limitations
 
 #### MyPy: "is not valid as a type" error
