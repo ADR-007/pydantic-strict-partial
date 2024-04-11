@@ -2,6 +2,21 @@
 
 
 
+## v0.5.0 (2024-04-11)
+
+### Ci
+
+* ci: update checkout action ([`be8b7b6`](https://github.com/ADR-007/pydantic-strict-partial/commit/be8b7b68effd5007bf12cde86c5366055707603c))
+
+### Documentation
+
+* docs: add optional fields specification to README.md ([`31655af`](https://github.com/ADR-007/pydantic-strict-partial/commit/31655afa4fe6df74c9395cca780c5824d733e0a7))
+
+### Feature
+
+* feat: accept optional_fields as stared positional arguments ([`8423f4f`](https://github.com/ADR-007/pydantic-strict-partial/commit/8423f4fd4ccc5b110d0037276f2046106bff73b7))
+
+
 ## v0.4.5 (2024-04-11)
 
 ### Documentation
