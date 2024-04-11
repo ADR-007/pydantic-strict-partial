@@ -98,3 +98,19 @@ def test_field_validator_is_executed() -> None:
 def test_custom_validator_is_executed() -> None:
     with pytest.raises(ValidationError):
         SomethingPartial(custom_validated=-1)
+
+
+def test_make_some_fields_optional() -> None:
+    class Model(BaseModel):
+        required: str
+        required2: str
+
+    model_partial_class = create_partial_model(
+        Model,
+        "required",
+    )
+
+    model_partial_class(required2="value")
+
+    with pytest.raises(ValidationError):
+        model_partial_class(required="value")

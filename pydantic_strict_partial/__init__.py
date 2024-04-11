@@ -1,6 +1,6 @@
 """Module for creating partial Pydantic models."""
 
-from typing import Any, Iterable, TypeVar
+from typing import Any, TypeVar
 
 from pydantic import BaseModel, create_model
 from pydantic.fields import FieldInfo
@@ -12,7 +12,7 @@ T = TypeVar("T", bound=BaseModel)
 
 def create_partial_model(
     model: type[T],
-    optional_fields: Iterable[str] | None = (),
+    *optional_fields: str,
     default_value: Any = None,  # noqa: ANN401
 ) -> type[T]:
     """Create a partial model from the given model class.
