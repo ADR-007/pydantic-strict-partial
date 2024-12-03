@@ -64,6 +64,12 @@ There is also possible to specify a limited list of fields to be partial:
 UserPartialUpdateSchema = create_partial_model(UserSchema, 'name', 'nickname')
 ```
 
+Or to make all fields partial except for the specified ones:
+
+```python
+UserPartialCreateSchema = create_partial_model(UserSchema, required_fields=['age'])
+```
+
 ## Known limitations
 
 #### MyPy: "is not valid as a type" error

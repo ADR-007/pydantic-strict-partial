@@ -114,3 +114,19 @@ def test_make_some_fields_optional() -> None:
 
     with pytest.raises(ValidationError):
         model_partial_class(required="value")
+
+
+def test_make_some_fields_required() -> None:
+    class Model(BaseModel):
+        required: str
+        required2: str
+
+    model_partial_class = create_partial_model(
+        Model,
+        required_fields=["required"],
+    )
+
+    model_partial_class(required="value")
+
+    with pytest.raises(ValidationError):
+        model_partial_class(required2="value")
