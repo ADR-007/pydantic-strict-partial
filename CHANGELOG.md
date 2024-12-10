@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.6.1 (2024-12-10)
+
+### Bug Fixes
+
+- Fix pydantic 2.10 support for annotated validators
+  ([#11](https://github.com/ADR-007/pydantic-strict-partial/pull/11),
+  [`4bb4669`](https://github.com/ADR-007/pydantic-strict-partial/commit/4bb4669e3ecddf83a536538f946feaf95c3ebdb9))
+
+fix: fix pydantic 2.10 support for annotated validators
+
+
 ## v0.6.0 (2024-12-03)
 
 ### Features
