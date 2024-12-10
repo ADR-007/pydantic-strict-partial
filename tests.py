@@ -2,7 +2,7 @@ from typing import Annotated
 
 import pytest
 from annotated_types import Ge
-from pydantic import Base64Bytes, BaseModel, Field, field_validator, ValidationError
+from pydantic import Base64Bytes, BaseModel, Field, ValidationError, field_validator
 from pydantic.fields import FieldInfo
 
 from pydantic_strict_partial import create_partial_model
