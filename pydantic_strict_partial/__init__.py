@@ -3,9 +3,10 @@
 from typing import Any, TypeVar
 
 from pydantic import BaseModel, create_model
-from pydantic.fields import FieldInfo
 
 __all__ = ["create_partial_model"]
+
+from pydantic.fields import FieldInfo
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -35,7 +36,14 @@ def create_partial_model(
 
         fields[field] = (
             field_info.rebuild_annotation(),
-            FieldInfo.merge_field_infos(field_info, default=default_value),
+            FieldInfo.merge_field_infos(
+                field_info,
+                default=default_value,
+                # Annotation and metadata are already populated.
+                # Remove them to avoid conflicts:
+                annotation=None,
+                metadata=[],
+            ),
         )
 
     return create_model(

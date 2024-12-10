@@ -2,7 +2,7 @@ from typing import Annotated
 
 import pytest
 from annotated_types import Ge
-from pydantic import BaseModel, Field, ValidationError, field_validator
+from pydantic import Base64Bytes, BaseModel, Field, ValidationError, field_validator
 from pydantic.fields import FieldInfo
 
 from pydantic_strict_partial import create_partial_model
@@ -27,13 +27,17 @@ class Something(BaseModel):
         return value
 
 
-SomethingPartial = create_partial_model(Something)
+@pytest.fixture(scope="session")
+def something_partial_cls() -> type[Something]:
+    return create_partial_model(Something)
 
 
-def test_partial_model_has_only_default_values_different_from_original() -> None:
-    for field_name in Something.model_fields:
+def test_partial_model_has_only_default_values_different_from_original(
+    something_partial_cls: type[Something],
+) -> None:
+    for field_name in something_partial_cls.model_fields:
         original_field_info = Something.model_fields[field_name]
-        partial_field_info = SomethingPartial.model_fields[field_name]
+        partial_field_info = something_partial_cls.model_fields[field_name]
 
         for attribute in FieldInfo.__slots__:
             original_value = getattr(original_field_info, attribute)
@@ -44,8 +48,8 @@ def test_partial_model_has_only_default_values_different_from_original() -> None
                 assert partial_value == original_value
 
 
-def test_create_model_with_partial_data() -> None:
-    something_partial = SomethingPartial(
+def test_create_model_with_partial_data(something_partial_cls: type[Something]) -> None:
+    something_partial = something_partial_cls(
         aliased_field="some value",
         nullable=None,
     )
@@ -56,8 +60,8 @@ def test_create_model_with_partial_data() -> None:
     }
 
 
-def test_create_model_with_all_data() -> None:
-    something_partial = SomethingPartial(
+def test_create_model_with_all_data(something_partial_cls: type[Something]) -> None:
+    something_partial = something_partial_cls(
         aliased_field="some value",
         with_default=42,
         with_validator=5,
@@ -80,24 +84,28 @@ def test_create_model_with_all_data() -> None:
     }
 
 
-def test_not_nullable_field_does_not_accept_none() -> None:
+def test_not_nullable_field_does_not_accept_none(
+    something_partial_cls: type[Something],
+) -> None:
     with pytest.raises(ValidationError):
-        SomethingPartial(aliased_field=None)  # type: ignore[arg-type]
+        something_partial_cls(aliased_field=None)  # type: ignore[arg-type]
 
 
-def test_validators_from_annotation_is_executed() -> None:
+def test_validators_from_annotation_is_executed(
+    something_partial_cls: type[Something],
+) -> None:
     with pytest.raises(ValidationError):
-        SomethingPartial(with_validator=-1)
+        something_partial_cls(with_validator=-1)
 
 
-def test_field_validator_is_executed() -> None:
+def test_field_validator_is_executed(something_partial_cls: type[Something]) -> None:
     with pytest.raises(ValidationError):
-        SomethingPartial(with_field_info=-1)
+        something_partial_cls(with_field_info=-1)
 
 
-def test_custom_validator_is_executed() -> None:
+def test_custom_validator_is_executed(something_partial_cls: type[Something]) -> None:
     with pytest.raises(ValidationError):
-        SomethingPartial(custom_validated=-1)
+        something_partial_cls(custom_validated=-1)
 
 
 def test_make_some_fields_optional() -> None:
@@ -130,3 +138,26 @@ def test_make_some_fields_required() -> None:
 
     with pytest.raises(ValidationError):
         model_partial_class(required2="value")
+
+
+def test_field_with_annotated_validator() -> None:
+    """Test that field with annotated validator is correctly handled.
+
+    Bug report:
+        library doesn't work with Base64Bytes annotated fields.
+        error:
+            {PydanticUserError}PydanticUserError(
+                "'EncodedBytes' cannot annotate 'function-after'."
+            )
+        pydantic versions:
+            pydantic      2.10.3
+            pydantic-core 2.27.1
+    """
+
+    class Model(BaseModel):
+        field: Base64Bytes
+
+    model_partial_class = create_partial_model(Model)
+    instance = model_partial_class.model_validate({"field": "AAAB"})
+
+    assert instance.field == b"\x00\x00\x01"
