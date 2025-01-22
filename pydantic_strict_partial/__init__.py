@@ -21,7 +21,7 @@ def create_partial_model(
 
     :param model: The model class to create a partial model from.
     :param optional_fields: The fields to make optional.
-        If None, all fields will be made optional.
+        If empty, all fields will be made optional.
     :param required_fields: The fields to make required.
         If None, no fields will be made required.
     :param default_value: The default value to use for optional fields.
