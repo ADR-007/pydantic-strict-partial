@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.6.2 (2025-01-22)
+
+### Documentation
+
+- Adjust doc, it's actually a tuple that can be empty
+  ([#12](https://github.com/ADR-007/pydantic-strict-partial/pull/12),
+  [`61e8e18`](https://github.com/ADR-007/pydantic-strict-partial/commit/61e8e18f075ef080d1e07fb72eda264335a8e3d6))
+
+By: Christian Hattemer <christian.hattemer@lst.at>
+
+
 ## v0.6.1 (2024-12-10)
 
 ### Bug Fixes

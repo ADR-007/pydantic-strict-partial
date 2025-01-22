@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pydantic-strict-partial"
-version = "0.6.1"
+version = "0.6.2"
 description = "Makes partial Pydantic models without making fields nullable."
 authors = ["Adrian Dankiv <adr-007@ukr.net>"]
 license = "MIT"
