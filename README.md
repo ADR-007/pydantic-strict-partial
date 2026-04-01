@@ -25,9 +25,9 @@ The most common use case is a `PATCH` request on **FastAPI** endpoints where you
 pip install pydantic-strict-partial
 ```
 
-### Using poetry
+### Using uv
 ```bash
-poetry add pydantic-strict-partial
+uv add pydantic-strict-partial
 ```
 
 ## Usage
@@ -69,6 +69,16 @@ Or to make all fields partial except for the specified ones:
 ```python
 UserPartialCreateSchema = create_partial_model(UserSchema, required_fields=['age'])
 ```
+
+## Development
+
+```bash
+uv sync --group dev
+uv tool install tox --with tox-uv
+tox run
+```
+
+Use `tox run -e lint` or `tox run -e py314-pydantic2.x` if you only want a single environment.
 
 ## Known limitations
 
