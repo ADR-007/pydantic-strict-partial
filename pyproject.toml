@@ -1,6 +1,6 @@
 [project]
 name = "pydantic-strict-partial"
-version = "0.6.2"
+version = "1.0.0"
 description = "Makes partial Pydantic models without making fields nullable."
 readme = "README.md"
 authors = [
