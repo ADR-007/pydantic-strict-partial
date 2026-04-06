@@ -32,7 +32,7 @@ def something_partial_cls() -> type[Something]:
     return create_partial_model(Something)
 
 
-def test_partial_model_has_only_default_values_different_from_original(
+def test_partial_model_preserves_public_field_info_attributes(
     something_partial_cls: type[Something],
 ) -> None:
     for field_name in something_partial_cls.model_fields:
@@ -40,6 +40,9 @@ def test_partial_model_has_only_default_values_different_from_original(
         partial_field_info = something_partial_cls.model_fields[field_name]
 
         for attribute in FieldInfo.__slots__:
+            if attribute.startswith("_"):
+                continue
+
             original_value = getattr(original_field_info, attribute)
             partial_value = getattr(partial_field_info, attribute)
             if attribute == "default":

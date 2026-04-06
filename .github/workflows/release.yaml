@@ -21,10 +21,13 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup python for test Python 3.12
+    - name: Setup python for test Python 3.14
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: "3.14"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
 
     - name: Python Semantic Release
       id: release
@@ -35,8 +38,7 @@ jobs:
     - name: Build and publish to pypi
       if: steps.release.outputs.released == 'true'
       env:
-        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
-        pip install poetry
-        poetry build
-        poetry publish
+        uv build
+        uv publish
